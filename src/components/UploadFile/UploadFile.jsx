@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { message, Upload } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
+import PropTypes from "prop-types";
 
 const uploadProps = {
   showUploadList: { showPreviewIcon: false },
@@ -75,6 +76,12 @@ const UploadFile = ({ value = [], onChange, defaultPreview }) => {
       )}
     </Upload>
   );
+};
+
+UploadFile.propTypes = {
+  value: PropTypes.array,
+  onChange: PropTypes.func,
+  defaultPreview: PropTypes.string,
 };
 
 export default UploadFile;

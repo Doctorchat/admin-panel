@@ -179,25 +179,23 @@ export default function MedicalCenterList() {
       {
         title: "Acțiuni",
         render: (_, row) => (
-          <>
-            <div style={{ display: "flex" }}>
-              <Button type="primary" size="small" className="me-2" onClick={onViewMedicalCentre(row)}>
-                Editează
-              </Button>
+          <div style={{ display: "flex" }}>
+            <Button type="primary" size="small" className="me-2" onClick={onViewMedicalCentre(row)}>
+              Editează
+            </Button>
 
-              <Popconfirm
-                title="Ești sigur ca vreai sa ștergi acestă cerere?"
-                placement="left"
-                okText="Accept"
-                cancelText="Anulează"
-                onConfirm={removeHandler(row.id)}
-              >
-                <Button type="primary" size="small" danger loading={removeMedicalCentreLoading === row.id}>
-                  Șterge
-                </Button>
-              </Popconfirm>
-            </div>
-          </>
+            <Popconfirm
+              title="Ești sigur ca vreai sa ștergi acestă cerere?"
+              placement="left"
+              okText="Accept"
+              cancelText="Anulează"
+              onConfirm={removeHandler(row.id)}
+            >
+              <Button type="primary" size="small" danger loading={removeMedicalCentreLoading === row.id}>
+                Șterge
+              </Button>
+            </Popconfirm>
+          </div>
         ),
       },
     ],

@@ -113,6 +113,10 @@ export default function Navigation({ closeMenu }) {
         label: <Link to="/promo-codes">Promo coduri</Link>,
       },
       {
+        key: "medical-centre",
+        label: <Link to="/medical-centre">Centre medicale</Link>,
+      },
+      {
         key: "logs",
         label: <Link to="/logs">Istoricul</Link>,
       },

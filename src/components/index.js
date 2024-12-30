@@ -4,3 +4,4 @@ export { default as FullPageLoading } from "./FullPageLoading";
 export { default as LoadingBar } from "./LoadingBar";
 export { default as investigationCard } from "./InvestigationCard";
 export { default as Permissions } from "./Permissions";
+export { default as UploadFile } from "./UploadFile";

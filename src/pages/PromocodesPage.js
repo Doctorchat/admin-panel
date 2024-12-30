@@ -48,7 +48,7 @@ export default function PromocodesPage() {
       <Modal
         title="Adaugă Promo-cod"
         centered
-        visible={addPromoVisible}
+        open={addPromoVisible}
         onOk={form.submit}
         okButtonProps={{ loading }}
         okText="Adaugă"

@@ -23,3 +23,4 @@ export { default as CallsPage } from "./CallsPage";
 export { default as CallViewPage } from "./CallViewPage";
 export { default as CompaniesPage } from "./CompaniesPage";
 export { default as CompanyViewPage } from "./CompanyViewPage";
+export { default as MedicalCentrePage } from "./MedicalCentrePage";

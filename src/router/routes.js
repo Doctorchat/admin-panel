@@ -24,6 +24,7 @@ import {
   CallViewPage,
   CompaniesPage,
   CompanyViewPage,
+  MedicalCentrePage,
 } from "../pages/";
 
 const routes = [
@@ -108,6 +109,12 @@ const routes = [
   {
     path: "/promo-codes",
     component: PromocodesPage,
+    exact: true,
+    private: true,
+  },
+  {
+    path: "/medical-centre",
+    component: MedicalCentrePage,
     exact: true,
     private: true,
   },

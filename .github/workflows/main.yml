@@ -22,19 +22,18 @@ jobs:
       - name: SSH Server Deploy MD
         uses: kostya-ten/ssh-server-deploy@v4
         with:
-          host: ${{ secrets.REMOTE_HOST }}
-          username: ${{ secrets.REMOTE_USER }}
-          password: ${{ secrets.SSH_PASS }}
-          private_key: ${{ secrets.SERVER_PRIVATE_KEY }}
+          host: '31.172.77.196'
+          username: 'doctorchat-admin'
+          password: ${{ secrets.APP_PASSWORD }}
           scp_source: "build/"
-          scp_target: ${{ secrets.TARGET_ADMIN_PROD }}
+          scp_target: "/home/doctorchat-admin/htdocs/admin.doctorchat.md/"
       - name: Send notification to Telegram
         uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            Deployed MD Prod Admin
+            Deployed - Doctorchat Admin
             ${{ github.actor }} created commit:
             Commit message: ${{ github.event.commits[0].message }}
 

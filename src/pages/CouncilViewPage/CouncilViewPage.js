@@ -275,7 +275,7 @@ export default function CouncilViewPage() {
 
             <Modal
               title="Închide Conversația"
-              visible={isModalVisible}
+              open={isModalVisible}
               onOk={closeChatForm.submit}
               onCancel={handleCancel}
               okText="Confirmă"

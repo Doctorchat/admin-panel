@@ -7,6 +7,7 @@ import { ConfigProvider } from "antd";
 import { setUserToAuthorized } from "./store/actions/userAction";
 import store from "./store";
 import history from "./utils/history";
+import roRO from "antd/es/locale/ro_RO";
 
 import App from "./App";
 
@@ -21,7 +22,7 @@ ReactDOM.render(
   <QueryClientProvider client={queryClient}>
     <Provider store={store}>
       <Router history={history}>
-        <ConfigProvider form={{ validateMessages: { required: "Acest câmp este obligatoriu" } }}>
+        <ConfigProvider locale={roRO} form={{ validateMessages: { required: "Acest câmp este obligatoriu" } }}>
           <App />
         </ConfigProvider>
       </Router>

@@ -53,7 +53,7 @@ export default function SettingsTab() {
 
         dispatch(updateChatsListRow(+chat_id, { doctor: data }));
       } catch (error) {
-        notification.error({ message: "Eroare", description: "A apărut o eraore" });
+        notification.error({ message: "Eroare", description: "A apărut o eroare" });
       } finally {
         setLoadingBtns(null);
       }
@@ -70,7 +70,7 @@ export default function SettingsTab() {
       dispatch(updateChatsListRow(+chat_id, { status: "closed" }));
       updateChatInfo("status", "closed");
     } catch (error) {
-      notification.error({ message: "Eroare", description: "A apărut o eraore" });
+      notification.error({ message: "Eroare", description: "A apărut o eroare" });
     } finally {
       setLoadingBtns(null);
     }
@@ -85,7 +85,7 @@ export default function SettingsTab() {
       dispatch(updateChatsListRow(+chat_id, { status: "closed" }));
       updateChatInfo("status", "closed");
     } catch (error) {
-      notification.error({ message: "Eroare", description: "A apărut o eraore" });
+      notification.error({ message: "Eroare", description: "A apărut o eroare" });
     } finally {
       setLoadingBtns(null);
     }

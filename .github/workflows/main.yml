@@ -1,4 +1,4 @@
-name: Doctochat Prod CI/CD
+name: Doctorchat Prod CI/CD
 
 on:
   push:
@@ -36,8 +36,5 @@ jobs:
             Deployed - Doctorchat Admin
             ${{ github.actor }} created commit:
             Commit message: ${{ github.event.commits[0].message }}
-
             Repository: ${{ github.repository }}
-
             See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
-            

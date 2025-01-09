@@ -64,6 +64,17 @@ const api = {
     update: (id, data) => axiosInstance.put(`/admin/medical-centre/${id}`, data),
     delete: (id) => axiosInstance.delete(`/admin/medical-centre/${id}`),
   },
+  doctorMedicalCentre: {
+    get: (id, params) => axiosInstance.get(`/admin/medical-centers/all/${id}`, { params: { user: id, ...params } }),
+    create: (data) => axiosInstance.post("/admin/medical-centers/assign", data),
+    delete: (userId, medicalCenterId) =>
+      axiosInstance.delete(`admin/medical-centers/detach/${userId}/${medicalCenterId}`, {
+        params: {
+          user: userId,
+          medical_center: medicalCenterId,
+        },
+      }),
+  },
   support: {
     get: (params) => axiosInstance.get("/admin/chats/support", { params: { ...params } }),
     count: () => axiosInstance.get("/admin/chats/support/count"),

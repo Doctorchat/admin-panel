@@ -1,8 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Avatar, Button, Col, message, Modal, Popconfirm, Row, Select, Space } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { useSessionStorage } from "react-use";
-import { deleteMedicalCentre, getMedicalCentreList } from "../../../store/actions/medicalCentreAction";
+import { getMedicalCentreList } from "../../../store/actions/medicalCentreAction";
 import { BankOutlined, PlusOutlined } from "@ant-design/icons";
 import { DcTable } from "../../../components";
 import date from "../../../utils/date";
@@ -15,18 +14,9 @@ import {
 
 const { Option } = Select;
 
-const initialState = {
-  page: 1,
-  sort_column: "id",
-  sort_direction: "descend",
-};
-
-const tableStateKey = "doctor-medical-centre";
-
 export default function MedicalCentreTab() {
   const { doc_id } = useParams();
 
-  const [state, setState] = useSessionStorage(tableStateKey, initialState);
   const [selectedMedicalCentre, setSelectedMedicalCentre] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -48,7 +38,6 @@ export default function MedicalCentreTab() {
     doctorMedicalCentre: store.doctorMedicalCentreList.payload,
   }));
 
-  console.log("[doctorMedicalCentre]", doctorMedicalCentre);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -58,45 +47,30 @@ export default function MedicalCentreTab() {
           status: error.response.status,
           message: error.response.data.message,
         });
-        sessionStorage.removeItem(tableStateKey);
       }
     });
   }, [dispatch, error]);
 
   useEffect(() => {
-    const { page, sort_column, sort_direction, per_page } = state;
-
     setLoading(true);
 
-    dispatch(getMedicalCentreByDoctorId(doc_id, { page, sort_column, sort_direction, per_page }))
+    dispatch(getMedicalCentreByDoctorId(doc_id, { per_page: 1_000 }))
       .catch(() => {
         if (error?.response?.status === 500) {
           setError({
             status: error.response.status,
             message: error.response.data.message,
           });
-          sessionStorage.removeItem(tableStateKey);
         }
       })
       .finally(() => {
         setLoading(false);
       });
-  }, [dispatch, error, state]);
+  }, [dispatch, error]);
 
   const onChange = (value) => {
     setSelectedMedicalCentre(value);
   };
-
-  const onTableChange = useCallback(
-    (pagination) => {
-      const newState = { ...state };
-
-      newState.page = pagination.current;
-
-      setState(newState);
-    },
-    [setState, state]
-  );
 
   const medicalCentreData = useMemo(() => {
     const doctorCentres = doctorMedicalCentre?.data || [];
@@ -115,14 +89,12 @@ export default function MedicalCentreTab() {
       { title: "ID", dataIndex: "id" },
       {
         title: "Nume",
-        render: (_, row) => {
-          return (
-            <div style={{ display: "flex", alignItems: "center", gap: 10, minWidth: "max-content" }}>
-              <Avatar src={row?.medical_center?.logo?.url} icon={<BankOutlined style={{ display: "inline-flex" }} />} />
-              {row?.medical_center?.name}
-            </div>
-          );
-        },
+        render: (_, row) => (
+          <div style={{ display: "flex", alignItems: "center", gap: 10, minWidth: "max-content" }}>
+            <Avatar src={row?.medical_centre?.logo?.url} icon={<BankOutlined style={{ display: "inline-flex" }} />} />
+            {row?.medical_centre?.name}
+          </div>
+        ),
       },
       {
         title: "Localitate",
@@ -175,10 +147,10 @@ export default function MedicalCentreTab() {
   const handleOk = async () => {
     try {
       await dispatch(assignDoctorToMedicalCenter(doc_id, selectedMedicalCentre));
-      await dispatch(getMedicalCentreByDoctorId(doc_id));
     } catch (e) {
       message.error("A apărut o eroare la adăugarea de centru medical.");
     } finally {
+      setSelectedMedicalCentre(null);
       setIsModalOpen(false);
     }
   };
@@ -207,18 +179,12 @@ export default function MedicalCentreTab() {
           onChange={onChange}
           style={{ width: "100%" }}
           size="large"
+          value={selectedMedicalCentre}
         >
-          {medicalCentreData?.map(({ value, label, email, address, logo, disabled, city }) => (
+          {medicalCentreData?.map(({ value, label, address, logo, disabled, city }) => (
             <Option key={value} value={value} label={label} disabled={disabled}>
               <Space style={{ display: "flex" }}>
-                <Avatar
-                  shape="square"
-                  size="large"
-                  src={
-                    "https://preview.redd.it/zfohxnf8t3pa1.jpg?width=1024&format=pjpg&auto=webp&v=enabled&s=0f660e0a56476991ee3b97f2885d8c010fec5b97"
-                  }
-                  style={{ opacity: disabled ? 0.5 : 1 }}
-                />
+                <Avatar shape="square" size="large" src={logo?.url} style={{ opacity: disabled ? 0.5 : 1 }} />
                 <div>
                   <div>{label}</div>
                   <div style={{ opacity: 0.5, fontSize: 12 }}>
@@ -244,17 +210,7 @@ export default function MedicalCentreTab() {
         </Col>
 
         <Col span={24}>
-          <DcTable
-            dataColumns={columns}
-            dataSource={doctorMedicalCentre?.data}
-            loading={loading}
-            onTabelChange={onTableChange}
-            pagination={{
-              per_page: doctorMedicalCentre?.meta?.per_page,
-              total: doctorMedicalCentre?.meta?.total,
-              current_page: doctorMedicalCentre?.meta?.current_page,
-            }}
-          />
+          <DcTable dataColumns={columns} dataSource={doctorMedicalCentre?.data} loading={loading} />
         </Col>
       </Row>
     </>

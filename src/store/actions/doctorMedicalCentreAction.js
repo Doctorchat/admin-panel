@@ -11,8 +11,6 @@ export const getMedicalCentreByDoctorId =
     try {
       const response = await api.doctorMedicalCentre.get(id, params);
 
-      console.log("getMedicalCentreByDoctorId", response?.data);
-
       dispatch({ type: DOCTOR_MEDICAL_CENTRE_LIST_GET, payload: response?.data });
 
       return Promise.resolve(response?.data);
@@ -25,7 +23,7 @@ export const assignDoctorToMedicalCenter = (user_id, medical_center_id) => async
   try {
     const response = await api.doctorMedicalCentre.create({ medical_center_id, user_id });
 
-    // dispatch({ type: ASSIGN_DOCTOR_MEDICAL_CENTRE, payload: response?.data });
+    dispatch({ type: ASSIGN_DOCTOR_MEDICAL_CENTRE, payload: response?.data });
 
     return Promise.resolve(response?.data);
   } catch (error) {

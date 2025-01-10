@@ -63,7 +63,7 @@ export default function DoctorsRequestsPage() {
         setSelectedDoctorData(response.data);
         setAcceptVisible(true);
       } catch (error) {
-        notification.error({ message: "Eroare", description: "A apărut o eraore" });
+        notification.error({ message: "Eroare", description: "A apărut o eroare" });
       } finally {
         setPrepareAcceptLoading(null);
       }
@@ -79,7 +79,7 @@ export default function DoctorsRequestsPage() {
         await api.doctors.removeRequest(docId);
         setRequests((prev) => prev.filter((req) => req.id !== docId));
       } catch (error) {
-        notification.error({ message: "Eroare", description: "A apărut o eraore" });
+        notification.error({ message: "Eroare", description: "A apărut o eroare" });
       } finally {
         setPrepareAcceptLoading(null);
       }

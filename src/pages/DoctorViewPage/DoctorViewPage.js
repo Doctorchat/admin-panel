@@ -14,6 +14,7 @@ import { DoctorForm } from "../../modules";
 import { ReactComponent as ExLink } from "../../asstets/icons/ex-link.svg";
 
 import "./styles/index.scss";
+import MedicalCentreTab from "./tabs/MedicalCentreTab";
 
 const { TabPane } = Tabs;
 
@@ -74,6 +75,9 @@ export default function DoctorViewPage() {
             </TabPane>
             <TabPane tab="Referral system" key="referral-system">
               <ReferralSystemTab />
+            </TabPane>
+            <TabPane tab="Centre medicale" key="medical-centre">
+              <MedicalCentreTab />
             </TabPane>
             {docInfo?.support_chat && (
               <TabPane

@@ -117,7 +117,7 @@ export default function PromoCodesList() {
       try {
         await dispatch(updatePromocode(data));
       } catch (error) {
-        notification.error({ message: "Eroare", description: "A apărut o eraore" });
+        notification.error({ message: "Eroare", description: "A apărut o eroare" });
       } finally {
         setEditLoading(false);
       }
@@ -194,7 +194,7 @@ export default function PromoCodesList() {
   return (
     <>
       {Boolean(activePromocode) && (
-        <Drawer visible={!!activePromocode} onClose={onClosePromocode} title="Editare promo-cod">
+        <Drawer open={!!activePromocode} onClose={onClosePromocode} title="Editare promo-cod">
           <Form layout="vertical" form={form} onFinish={onEditSubmit}>
             <Form.Item name="name" label="Cod" normalize={(value) => promoInputReplacer(value)}>
               <Input placeholder="WINTER10" disabled autoComplete="off" />

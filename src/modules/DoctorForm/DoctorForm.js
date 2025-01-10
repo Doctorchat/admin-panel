@@ -51,7 +51,7 @@ export default function DoctorForm(props) {
         if (onSubmitSuccess) onSubmitSuccess(response.data);
       } catch (error) {
         if (onSubmitFailed) onSubmitFailed(error);
-        notification.error({ message: "Eroare", description: "A apărut o eraore" });
+        notification.error({ message: "Eroare", description: "A apărut o eroare" });
       } finally {
         setLoading(false);
       }
@@ -107,7 +107,7 @@ export default function DoctorForm(props) {
     <Drawer
       size="default"
       title="Actualizare doctor"
-      visible={visible}
+      open={visible}
       onClose={onCloseHandler}
       contentWrapperStyle={{
         width: 560,

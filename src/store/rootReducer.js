@@ -13,6 +13,7 @@ import logsList from "./reducers/logsReducer";
 import supportList from "./reducers/supportListReducer";
 import withdrawal from "./reducers/withdrawalReducer";
 import medicalCentreList from "./reducers/medicalCentreReducer";
+import doctorMedicalCentreList from "./reducers/doctorMedicalCentreReducer";
 
 const rootReducer = combineReducers({
   user,
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   supportList,
   withdrawal,
   medicalCentreList,
+  doctorMedicalCentreList,
 });
 
 export default rootReducer;

@@ -32,12 +32,12 @@ const MedicalCentrePage = () => {
         await dispatch(createMedicalCentre({ upload_id, ...restValues }));
 
         message.success("Centru medical creat cu succes!");
+        form.resetFields();
+        setAddMedicalCentre(false);
       } catch (error) {
         message.error("A apărut o eroare la crearea de centru medical.");
       } finally {
         setLoading(false);
-        form.resetFields();
-        setAddMedicalCentre(false);
       }
     },
     [dispatch, form]

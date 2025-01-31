@@ -89,12 +89,12 @@ export default function MedicalCenterList() {
         await dispatch(updateMedicalCentre(activeMedicalCentre?.id, { ...restValues, upload_id }));
 
         message.success("Centru medical a fost actualizat.");
-      } catch (error) {
-        message.error("A apărut o eroare la actualizare de centru medical.");
-      } finally {
+
         setEditLoading(false);
         form.resetFields();
         onCloseDrawer();
+      } catch (error) {
+        message.error("A apărut o eroare la actualizare de centru medical.");
       }
     },
     [activeMedicalCentre, dispatch]

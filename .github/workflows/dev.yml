@@ -1,4 +1,4 @@
-name: Doctochat Dev CI/CD
+name: Doctorchat DEV CI/CD
 
 on:
   push:
@@ -18,27 +18,23 @@ jobs:
         run: npm install
 
       - name: Build
-        run: CI=false npm run build:dev
+        run: CI=false npm run build
       - name: SSH Server Deploy MD
         uses: kostya-ten/ssh-server-deploy@v4
         with:
-          host: ${{ secrets.REMOTE_HOST }}
-          username: ${{ secrets.REMOTE_USER }}
-          password: ${{ secrets.SSH_PASS }}
-          private_key: ${{ secrets.SERVER_PRIVATE_KEY }}
+          host: '31.172.77.196'
+          username: 'doctorchat-admin-dev'
+          password: ${{ secrets.APP_PASSWORD }}
           scp_source: "build/"
-          scp_target: ${{ secrets.TARGET_ADMIN_DEV }}
+          scp_target: "/home/doctorchat-admin-dev/htdocs/admin-dev.doctorchat.md/"
       - name: Send notification to Telegram
         uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            Deployed MD
+            Deployed - Doctorchat Admin DEV
             ${{ github.actor }} created commit:
             Commit message: ${{ github.event.commits[0].message }}
-
             Repository: ${{ github.repository }}
-
             See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
-            

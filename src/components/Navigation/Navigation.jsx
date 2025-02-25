@@ -61,6 +61,10 @@ export default function Navigation({ closeMenu }) {
         ),
       },
       {
+        key: "tip-of-the-day",
+        label: <Link to="/tip-of-the-day">Sfatul zilei</Link>,
+      },
+      {
         key: "statistics",
         label: <Link to="/statistics">Statistică</Link>,
       },

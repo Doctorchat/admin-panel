@@ -64,7 +64,7 @@ const UploadFile = ({ value = [], onChange, defaultPreview, listType = "picture-
               marginTop: 6,
             }}
           >
-            Selectează logo-ul
+            Selectează fișierul
           </div>
         </div>
       )}

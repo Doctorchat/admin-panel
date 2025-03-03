@@ -122,14 +122,13 @@ const api = {
   },
   tipOfTheDay: {
     getAll: (params) => axiosInstance.get("/admin/totd", { params }).then((res) => res.data),
+    getById: (id) => axiosInstance.get(`/admin/totd/${id}`).then((res) => res.data),
     create: (data) => axiosInstance.post("/admin/totd", data),
-
-    /*    get: (id) => axiosInstance.get(`/admin/companies/${id}`).then((res) => res.data),
-
-    update: (id, data) => axiosInstance.put(`/admin/companies/${id}`, data),
-    delete: (id) => axiosInstance.delete(`/admin/companies/${id}`),
-    employees: (id, params) =>
-      axiosInstance.get(`/admin/companies/${id}/employees`, { params }).then((res) => res.data),*/
+    update: ({ id, data }) => {
+      console.log(id, data);
+      axiosInstance.put(`/admin/totd/${id}`, data);
+    },
+    delete: (id) => axiosInstance.delete(`/admin/totd/${id}`),
   },
   upload: {
     file: (file) => {

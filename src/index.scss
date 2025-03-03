@@ -1,4 +1,9 @@
 @import "bootstrap/dist/css/bootstrap-reboot.min.css";
 @import "bootstrap/dist/css/bootstrap-utilities.min.css";
 @import "./antd.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import "./styles/index.scss";

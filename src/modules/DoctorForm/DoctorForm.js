@@ -123,7 +123,7 @@ export default function DoctorForm(props) {
               name="email"
               rules={[{ required: true }, { type: "email", message: "Acest email nu este valid" }]}
             >
-              <Input disabled />
+              <Input />
             </Form.Item>
             <Form.Item className="w-100" label="Telefon" name="phone">
               <Input />

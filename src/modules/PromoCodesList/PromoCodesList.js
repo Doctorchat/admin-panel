@@ -170,7 +170,7 @@ export default function PromoCodesList() {
               Editează
             </Button>
             <Popconfirm
-              title="Ești sigur ca vreai sa ștergi acestă cerere?"
+              title="Ești sigur ca vrei sa ștergi acestă cerere?"
               placement="left"
               onConfirm={removeHandler(row.id)}
               okText="Accept"

@@ -120,6 +120,16 @@ const api = {
     employees: (id, params) =>
       axiosInstance.get(`/admin/companies/${id}/employees`, { params }).then((res) => res.data),
   },
+  tipOfTheDay: {
+    getAll: (params) => axiosInstance.get("/admin/totd", { params }).then((res) => res.data),
+    getById: (id) => axiosInstance.get(`/admin/totd/${id}`).then((res) => res.data),
+    create: (data) => axiosInstance.post("/admin/totd", data),
+    update: ({ id, data }) => {
+      console.log(id, data);
+      axiosInstance.put(`/admin/totd/${id}`, data);
+    },
+    delete: (id) => axiosInstance.delete(`/admin/totd/${id}`),
+  },
   upload: {
     file: (file) => {
       const formData = new FormData();

@@ -25,7 +25,7 @@ const getBase64 = (file) =>
     reader.onerror = (error) => reject(error);
   });
 
-const UploadFile = ({ value = [], onChange, defaultPreview }) => {
+const UploadFile = ({ value = [], onChange, defaultPreview, listType = "picture-card" }) => {
   const [fileList, setFileList] = useState(value);
 
   useEffect(() => {
@@ -55,13 +55,7 @@ const UploadFile = ({ value = [], onChange, defaultPreview }) => {
   };
 
   return (
-    <Upload
-      listType="picture-card"
-      fileList={fileList}
-      onPreview={handlePreview}
-      onChange={handleChange}
-      {...uploadProps}
-    >
+    <Upload listType={listType} fileList={fileList} onPreview={handlePreview} onChange={handleChange} {...uploadProps}>
       {fileList.length >= 1 ? null : (
         <div>
           <PlusOutlined />
@@ -70,7 +64,7 @@ const UploadFile = ({ value = [], onChange, defaultPreview }) => {
               marginTop: 6,
             }}
           >
-            Selectează logo-ul
+            Selectează fișierul
           </div>
         </div>
       )}

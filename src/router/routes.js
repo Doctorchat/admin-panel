@@ -25,6 +25,7 @@ import {
   CompaniesPage,
   CompanyViewPage,
   MedicalCentrePage,
+  TipOfTheDayPage,
 } from "../pages/";
 
 const routes = [
@@ -188,6 +189,12 @@ const routes = [
   {
     path: "/company/:company_id",
     component: CompanyViewPage,
+    exact: true,
+    private: true,
+  },
+  {
+    path: "/tip-of-the-day",
+    component: TipOfTheDayPage,
     exact: true,
     private: true,
   },

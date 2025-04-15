@@ -3,3 +3,279 @@
     padding-left: 0 !important;
   }
 }
+
+.doctor-profile-header {
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  background-color: #fff;
+  
+  .doctor-avatar {
+    margin-bottom: 16px;
+    border: 4px solid #f5f5f5;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+  
+  .doctor-info {
+    display: flex;
+    flex-direction: column;
+    
+    @media (min-width: 768px) {
+      gap: 12px;
+    }
+    
+    @media (max-width: 767px) {
+      margin-top: 10px;
+      text-align: center;
+      
+      .doctor-actions {
+        margin-top: 16px;
+      }
+    }
+  }
+  
+  .doctor-title {
+    .doctor-name {
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      
+      @media (max-width: 767px) {
+        justify-content: center;
+      }
+    }
+    
+    .doctor-specialty {
+      font-size: 16px;
+      display: block;
+      margin-bottom: 12px;
+    }
+  }
+  
+  .doctor-stats {
+    margin: 12px 0;
+    
+    .ant-row {
+      @media (max-width: 767px) {
+        justify-content: center;
+      }
+    }
+  }
+  
+  .doctor-actions {
+    display: flex;
+    gap: 12px;
+    
+    @media (max-width: 767px) {
+      justify-content: center;
+    }
+  }
+}
+
+.doctor-tabs-container {
+  background-color: #fff;
+  
+  .doctor-tabs {
+    .ant-tabs-nav {
+      margin-bottom: 16px;
+    }
+    
+    .ant-tabs-card .ant-tabs-tab {
+      background-color: #f5f5f5;
+      border-color: #e8e8e8;
+    }
+    
+    .ant-tabs-tab.ant-tabs-tab-active {
+      background-color: #fff;
+      border-bottom-color: #fff;
+    }
+  }
+}
+
+// Stat component styling
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  min-width: 120px;
+  
+  .stat-icon {
+    font-size: 20px;
+    color: #1890ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .stat-content {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .stat-value {
+    font-weight: 600;
+    font-size: 16px;
+  }
+  
+  .stat-label {
+    font-size: 12px;
+    color: #8c8c8c;
+  }
+}
+
+// Doctor info tabs styling
+.doctor-info-tabs {
+  .info-section {
+    margin-bottom: 24px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .info-card {
+    height: 100%;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    
+    .ant-card-head {
+      background-color: #fafafa;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .ant-card-body {
+      padding: 16px;
+    }
+  }
+  
+  .info-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+    
+    .info-icon, .info-icon-placeholder {
+      margin-right: 12px;
+      font-size: 18px;
+      color: #1890ff;
+      min-width: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .info-icon-placeholder {
+      width: 24px;
+      height: 24px;
+    }
+    
+    .info-value {
+      font-weight: 500;
+      margin-top: 4px;
+      
+      &.highlight {
+        color: #1890ff;
+        font-weight: 600;
+        font-size: 18px;
+      }
+    }
+  }
+  
+  // Schedule items styling
+  .schedule-item {
+    display: flex;
+    align-items: center;
+    background-color: #f8f9fa;
+    padding: 12px;
+    border-radius: 8px;
+    height: 100%;
+    
+    .schedule-icon {
+      margin-right: 12px;
+      color: #1890ff;
+      font-size: 18px;
+    }
+    
+    .schedule-day {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    
+    .schedule-hours {
+      color: #595959;
+    }
+  }
+  
+  // Education and specialty items
+  .education-item, .specialty-item {
+    padding: 8px 0;
+    border-bottom: 1px dashed #f0f0f0;
+    
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+  
+  // Bio text styling
+  .bio-text {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #595959;
+  }
+  
+  // Reviews styling
+  .reviews-list {
+    .review-item {
+      margin-bottom: 16px;
+      padding: 0;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    
+    .review-card {
+      width: 100%;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+      
+      .ant-card-body {
+        padding: 16px;
+      }
+    }
+    
+    .review-author {
+      font-weight: 600;
+      font-size: 16px;
+    }
+    
+    .review-date {
+      color: #8c8c8c;
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+    
+    .review-content {
+      margin-bottom: 0;
+      color: #595959;
+    }
+  }
+}
+
+// Improve tab content
+.ant-descriptions {
+  background-color: #fff;
+  border-radius: 8px;
+  
+  .ant-descriptions-item-label {
+    font-weight: 500;
+  }
+}
+
+.ant-list-item {
+  padding: 12px 0;
+}

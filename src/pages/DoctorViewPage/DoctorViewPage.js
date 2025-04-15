@@ -1,4 +1,4 @@
-import { Button, PageHeader, Spin, Tabs } from "antd";
+import { Button, PageHeader, Spin, Tabs, Card, Typography, Avatar, Tag, Row, Col } from "antd";
 import { useQuery } from "react-query";
 import { useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -12,11 +12,13 @@ import cs from "../../utils/classNames";
 import api from "../../utils/appApi";
 import { DoctorForm } from "../../modules";
 import { ReactComponent as ExLink } from "../../asstets/icons/ex-link.svg";
+import { UserOutlined, MessageOutlined, ClockCircleOutlined, LikeOutlined } from "@ant-design/icons";
 
 import "./styles/index.scss";
 import MedicalCentreTab from "./tabs/MedicalCentreTab";
 
 const { TabPane } = Tabs;
+const { Title, Text } = Typography;
 
 export default function DoctorViewPage() {
   usePermissionsRedirect();
@@ -45,19 +47,68 @@ export default function DoctorViewPage() {
     [docInfo]
   );
 
+  const getStatusTag = () => {
+    if (docInfo?.inVacation) return <Tag color="orange">În vacanță</Tag>;
+    if (docInfo?.isOnline) return <Tag color="green">Online</Tag>;
+    return <Tag color="default">Offline</Tag>;
+  };
+
   return (
     <div className={cs("page-view", docInfo?.inVacation && "closed")}>
       <Spin spinning={loading}>
-        <PageHeader
-          className="site-page-header"
-          onBack={history.goBack}
-          title="Doctor"
-          extra={[
-            <Button key="doc-view-edit" type="primary" size="small" onClick={() => setEditVisible(true)}>
-              Editează
-            </Button>,
-          ]}
-        />
+        <Card 
+          className="doctor-profile-header"
+          bordered={false}
+        >
+          <Row gutter={24} align="middle">
+            <Col xs={24} md={6} lg={4}>
+              <Avatar 
+                size={120} 
+                icon={<UserOutlined />} 
+                src={docInfo?.avatar ? `https://api.doctorchat.md/uploads/avatars/${docInfo.avatar}` : null} 
+                className="doctor-avatar"
+              />
+            </Col>
+            <Col xs={24} md={18} lg={20}>
+              <div className="doctor-info">
+                <div className="doctor-title">
+                  <Title level={3} className="doctor-name">
+                    {docInfo?.name || "Loading..."}
+                    <span className="doctor-status">{getStatusTag()}</span>
+                  </Title>
+                  <Text type="secondary" className="doctor-specialty">
+                    {docInfo?.card?.specialization?.ro || ""}
+                    {docInfo?.card?.title ? ` · ${docInfo?.card?.title}` : ""}
+                  </Text>
+                </div>
+                
+                <div className="doctor-stats">
+                  <Row gutter={16}>
+                    <Col>
+                      <Stat icon={<MessageOutlined />} value={docInfo?.card?.helped || 0} label="Consultații" />
+                    </Col>
+                    <Col>
+                      <Stat icon={<LikeOutlined />} value={docInfo?.card?.likes?.like || 0} label="Aprecieri" />
+                    </Col>
+                    <Col>
+                      <Stat icon={<ClockCircleOutlined />} value={docInfo?.card?.response_time || "-"} label="Timp răspuns" />
+                    </Col>
+                  </Row>
+                </div>
+                
+                <div className="doctor-actions">
+                  <Button key="doc-view-edit" type="primary" onClick={() => setEditVisible(true)}>
+                    Editează
+                  </Button>
+                  <Button key="doc-view-back" onClick={history.goBack}>
+                    Înapoi
+                  </Button>
+                </div>
+              </div>
+            </Col>
+          </Row>
+        </Card>
+
         <DoctorForm
           onClose={() => setEditVisible(false)}
           submitBtnText="Salvează"
@@ -65,49 +116,65 @@ export default function DoctorViewPage() {
           defaultValues={docInfo}
           docId={doc_id}
         />
-        <DoctorViewContext.Provider value={{ docInfo, updateDocInfo }}>
-          <Tabs>
-            <TabPane tab="Informație generală" key="general-information">
-              <GeneralInformationTab />
-            </TabPane>
-            <TabPane tab="Chat-uri" key="chats">
-              <ChatsTab />
-            </TabPane>
-            <TabPane tab="Referral system" key="referral-system">
-              <ReferralSystemTab />
-            </TabPane>
-            <TabPane tab="Centre medicale" key="medical-centre">
-              <MedicalCentreTab />
-            </TabPane>
-            {docInfo?.support_chat && (
-              <TabPane
-                tab={
-                  <>
-                    <div
-                      role="tab"
-                      aria-selected="false"
-                      className="ant-tabs-tab-btn"
-                      tabIndex="0"
-                      id="rc-tabs-1-tab-support"
-                      aria-controls="rc-tabs-1-panel-support"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
 
-                        window.open(`/support/${docInfo.support_chat}`, "_blank").focus();
-                      }}
-                    >
-                      <ExLink width={16} height={16} className="me-1" />
-                      Support Chat
-                    </div>
-                  </>
-                }
-                key="support"
-              />
-            )}
-          </Tabs>
-        </DoctorViewContext.Provider>
+        <Card className="doctor-tabs-container" bordered={false}>
+          <DoctorViewContext.Provider value={{ docInfo, updateDocInfo }}>
+            <Tabs type="card" className="doctor-tabs">
+              <TabPane tab="Informație generală" key="general-information">
+                <GeneralInformationTab />
+              </TabPane>
+              <TabPane tab="Chat-uri" key="chats">
+                <ChatsTab />
+              </TabPane>
+              <TabPane tab="Referral system" key="referral-system">
+                <ReferralSystemTab />
+              </TabPane>
+              <TabPane tab="Centre medicale" key="medical-centre">
+                <MedicalCentreTab />
+              </TabPane>
+              {docInfo?.support_chat && (
+                <TabPane
+                  tab={
+                    <>
+                      <div
+                        role="tab"
+                        aria-selected="false"
+                        className="ant-tabs-tab-btn"
+                        tabIndex="0"
+                        id="rc-tabs-1-tab-support"
+                        aria-controls="rc-tabs-1-panel-support"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+
+                          window.open(`/support/${docInfo.support_chat}`, "_blank").focus();
+                        }}
+                      >
+                        <ExLink width={16} height={16} className="me-1" />
+                        Support Chat
+                      </div>
+                    </>
+                  }
+                  key="support"
+                />
+              )}
+            </Tabs>
+          </DoctorViewContext.Provider>
+        </Card>
       </Spin>
+    </div>
+  );
+}
+
+// Statistic component
+function Stat({ icon, value, label }) {
+  return (
+    <div className="stat-item">
+      <div className="stat-icon">{icon}</div>
+      <div className="stat-content">
+        <div className="stat-value">{value}</div>
+        <div className="stat-label">{label}</div>
+      </div>
     </div>
   );
 }

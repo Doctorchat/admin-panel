@@ -1,14 +1,16 @@
-import { PageHeader } from "antd";
+import { PageHeader, Card } from "antd";
 import { LogsList } from "../modules";
 import usePermissionsRedirect from "../hooks/usePermissionsRedirect";
 
-export default function ReviewsListPage() {
+export default function LogsListPage() {
   usePermissionsRedirect();
 
   return (
     <>
       <PageHeader className="site-page-header" title="Istoricul" />
-      <LogsList />
+      <Card bordered={false} className="shadow-sm">
+        <LogsList />
+      </Card>
     </>
   );
 }

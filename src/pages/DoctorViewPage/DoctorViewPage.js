@@ -1,6 +1,6 @@
 import { Button, PageHeader, Spin, Tabs, Card, Typography, Avatar, Tag, Row, Col } from "antd";
-import { useQuery } from "react-query";
-import { useCallback, useState } from "react";
+import { useQuery, useQueryClient } from "react-query";
+import { useCallback, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { DoctorViewContext } from "./DoctorViewContext";
 import GeneralInformationTab from "./tabs/GeneralInformationTab";
@@ -10,9 +10,9 @@ import ReferralSystemTab from "./tabs/ReferralSystemTab";
 import usePermissionsRedirect from "../../hooks/usePermissionsRedirect";
 import cs from "../../utils/classNames";
 import api from "../../utils/appApi";
-import { DoctorForm } from "../../modules";
+import { DoctorForm, DoctorBalanceModal } from "../../modules";
 import { ReactComponent as ExLink } from "../../asstets/icons/ex-link.svg";
-import { UserOutlined, MessageOutlined, ClockCircleOutlined, LikeOutlined } from "@ant-design/icons";
+import { UserOutlined, MessageOutlined, ClockCircleOutlined, LikeOutlined, WalletOutlined } from "@ant-design/icons";
 
 import "./styles/index.scss";
 import MedicalCentreTab from "./tabs/MedicalCentreTab";
@@ -25,7 +25,14 @@ export default function DoctorViewPage() {
 
   const { doc_id } = useParams();
   const [editVisible, setEditVisible] = useState(false);
+  const [balanceModalVisible, setBalanceModalVisible] = useState(false);
   const history = useHistory();
+  const queryClient = useQueryClient();
+  
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const { data: docInfoData, isLoading: loading } = useQuery({
     queryKey: ["doctor-by-id"],
@@ -97,6 +104,9 @@ export default function DoctorViewPage() {
                 </div>
                 
                 <div className="doctor-actions">
+                  <Button key="doc-view-balance" type="default" icon={<WalletOutlined />} onClick={() => setBalanceModalVisible(true)}>
+                    Balanță
+                  </Button>
                   <Button key="doc-view-edit" type="primary" onClick={() => setEditVisible(true)}>
                     Editează
                   </Button>
@@ -161,6 +171,17 @@ export default function DoctorViewPage() {
             </Tabs>
           </DoctorViewContext.Provider>
         </Card>
+        
+        {/* Doctor Balance Modal */}
+        <DoctorBalanceModal
+          visible={balanceModalVisible}
+          onClose={() => setBalanceModalVisible(false)}
+          doctor={docInfo}
+          onSuccess={() => {
+            // Refetch the doctor data to update the balance
+            queryClient.invalidateQueries(["doctor-by-id"]);
+          }}
+        />
       </Spin>
     </div>
   );

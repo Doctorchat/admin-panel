@@ -1,0 +1,211 @@
+// Doctors List Page Styles
+
+.doctors-list-container {
+  .doctors-header-card {
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    
+    .page-title {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      
+      .page-title-icon {
+        color: #1890ff;
+        margin-right: 10px;
+        font-size: 22px;
+      }
+      
+      .doctor-count-tag {
+        margin-left: 10px;
+        font-weight: normal;
+      }
+    }
+    
+    .header-actions {
+      display: flex;
+      justify-content: flex-end;
+      
+      @media (max-width: 767px) {
+        justify-content: flex-start;
+      }
+    }
+  }
+  
+  .statistics-row {
+    margin-bottom: 20px;
+    
+    .stat-card {
+      height: 100%;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+      
+      .ant-statistic-title {
+        color: #8c8c8c;
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
+      
+      .ant-statistic-content {
+        color: #1890ff;
+        
+        .ant-statistic-content-prefix {
+          margin-right: 8px;
+        }
+      }
+    }
+  }
+  
+  .doctors-content-card {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    
+    .search-container {
+      margin-bottom: 20px;
+      
+      .search-input {
+        max-width: 400px;
+        height: 40px;
+        
+        .ant-input-prefix {
+          color: #8c8c8c;
+          margin-right: 8px;
+        }
+      }
+    }
+    
+    .doctors-table {
+      .ant-table {
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      
+      .ant-table-thead > tr > th {
+        background-color: #f9f9f9;
+        font-weight: 600;
+      }
+      
+      // Doctor info column
+      .doctor-link {
+        display: block;
+        color: inherit;
+        transition: all 0.3s ease;
+        
+        &:hover {
+          .doctor-name {
+            color: #1890ff;
+          }
+        }
+      }
+      
+      .doctor-info {
+        display: flex;
+        align-items: center;
+        
+        .doctor-avatar {
+          margin-right: 15px;
+          border: 2px solid #f0f0f0;
+        }
+        
+        .doctor-details {
+          .doctor-name {
+            display: block;
+            margin-bottom: 2px;
+            transition: color 0.3s ease;
+          }
+          
+          .doctor-specialty {
+            font-size: 12px;
+            line-height: 1.3;
+          }
+        }
+      }
+      
+      // Contact column
+      .contact-info {
+        .contact-item {
+          display: flex;
+          align-items: center;
+          margin-bottom: 8px;
+          
+          &:last-child {
+            margin-bottom: 0;
+          }
+          
+          .contact-icon {
+            color: #8c8c8c;
+            margin-right: 8px;
+            font-size: 14px;
+          }
+        }
+      }
+      
+      // Financial column
+      .financial-info {
+        .financial-item {
+          margin-bottom: 8px;
+          
+          &:last-child {
+            margin-bottom: 0;
+          }
+          
+          .financial-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 8px;
+            
+            .anticon {
+              margin-right: 4px;
+            }
+          }
+        }
+      }
+      
+      // Requests column
+      .requests-info {
+        .requests-item {
+          margin-bottom: 8px;
+          
+          &:last-child {
+            margin-bottom: 0;
+          }
+          
+          .requests-tag {
+            display: inline-block;
+            min-width: 110px;
+            text-align: center;
+          }
+        }
+      }
+      
+      // Activity column
+      .activity-info {
+        .activity-item {
+          display: flex;
+          align-items: center;
+          margin-bottom: 8px;
+          
+          .activity-icon {
+            color: #8c8c8c;
+            margin-right: 8px;
+            font-size: 14px;
+          }
+        }
+      }
+      
+      // Actions column
+      .actions-container {
+        display: flex;
+        justify-content: center;
+        
+        .ant-btn {
+          min-width: 100px;
+        }
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
-import { Empty, Table } from "antd";
+import { Empty, Table, Typography } from "antd";
 
 import "./styles/index.scss";
 import cs from "../../utils/classNames";
@@ -42,9 +42,9 @@ export default function DcTable(props) {
         <Table
           title={() => (title && <h3 className="dc-table-title m-0">{title}</h3>) || null}
           footer={() => extra && extra}
-          bordered
+          bordered={false}
           scroll={{ x: tableXScroll }}
-          size="small"
+          size="middle"
           locale={{
             emptyText: <Empty description="Nu-s date" />,
           }}
@@ -61,6 +61,7 @@ export default function DcTable(props) {
             total: pagination.total,
             current: pagination.current_page,
             position: pagination.position,
+            showTotal: (total) => <Typography.Text>Total: {total} înregistrări</Typography.Text>,
           }}
         />
       </div>

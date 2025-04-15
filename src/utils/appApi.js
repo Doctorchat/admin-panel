@@ -90,6 +90,9 @@ const api = {
     approve: (id) => axiosInstance.post(`/admin/withdraw/approve/${id}`),
     approved: (params) => axiosInstance.get("/admin/withdraw/approved", { params: { ...params } }),
   },
+  wallet: {
+    updateBalance: (data) => axiosInstance.post("/admin/wallet-management", data),
+  },
   council: {
     get: (params) => axiosInstance.get("/admin/chats/consilium/all", { params: { ...params } }),
     count: () => axiosInstance.get("/admin/chats/consilium/count"),

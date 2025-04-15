@@ -7,6 +7,7 @@ import { updateRequestsCount } from "./store/actions/requestsCountAction";
 import { updateCouncilCount, updateSupportCount } from "./store/actions/supportListAction";
 import { updateWithdrawalCount } from "./store/actions/withdrawalAction";
 import { getUser } from "./store/actions/userAction";
+import { ScrollToTop } from "./components";
 
 function App() {
   const dispatch = useDispatch();
@@ -25,7 +26,12 @@ function App() {
     }
   }, [dispatch, isAuthorized]);
 
-  return <Router routes={routes} />;
+  return (
+    <>
+      <ScrollToTop />
+      <Router routes={routes} />
+    </>
+  );
 }
 
 export default App;

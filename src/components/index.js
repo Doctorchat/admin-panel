@@ -5,3 +5,4 @@ export { default as LoadingBar } from "./LoadingBar";
 export { default as investigationCard } from "./InvestigationCard";
 export { default as Permissions } from "./Permissions";
 export { default as UploadFile } from "./UploadFile";
+export { default as ScrollToTop } from "./ScrollToTop";

@@ -11,7 +11,8 @@ import {
   ClockCircleOutlined,
   SortAscendingOutlined,
   PlusOutlined,
-  TeamOutlined
+  TeamOutlined,
+  CalendarOutlined
 } from "@ant-design/icons";
 import { 
   Alert, 
@@ -40,12 +41,61 @@ import api from "../utils/appApi";
 import useTableState from "../hooks/usePaginatedQueryState";
 import useDebounce from "../hooks/useDebounce";
 import { useSelector } from "react-redux";
+import moment from "moment";
 
 import "./styles/doctors-list.scss";
 
 const { Title, Text } = Typography;
 
 export default function DoctorsList() {
+  // Helper function to get vacation information including period and remaining days
+  const getVacationInfo = (vacationData) => {
+    if (!vacationData || vacationData === "[]" || vacationData === "") 
+      return { isOnVacation: false, period: "", remainingDays: 0 };
+    
+    try {
+      const vacationDates = JSON.parse(vacationData);
+      if (!Array.isArray(vacationDates) || vacationDates.length === 0) 
+        return { isOnVacation: false, period: "", remainingDays: 0 };
+      
+      const today = moment().format("DD.MM.YYYY");
+      const currentDate = moment(today, "DD.MM.YYYY");
+      
+      // For a date range
+      if (vacationDates.length === 2 && !Array.isArray(vacationDates[0])) {
+        const startDate = moment(vacationDates[0], "DD.MM.YYYY");
+        const endDate = moment(vacationDates[1], "DD.MM.YYYY");
+        
+        const isOnVac = currentDate.isBetween(startDate, endDate, null, '[]'); // inclusive range
+        const period = `${vacationDates[0]} - ${vacationDates[1]}`;
+        
+        // Calculate remaining days
+        let remainingDays = 0;
+        if (isOnVac) {
+          remainingDays = endDate.diff(currentDate, 'days');
+        }
+        
+        return { isOnVacation: isOnVac, period, remainingDays };
+      }
+      
+      // For specific dates
+      const isOnVac = vacationDates.includes(today);
+      // For single date, remaining days is 0 if it's today
+      return { 
+        isOnVacation: isOnVac, 
+        period: vacationDates.join(", "),
+        remainingDays: 0 // If it's just today or specific dates, there are 0 days remaining
+      };
+    } catch (e) {
+      console.error("Error parsing vacation data:", e);
+      return { isOnVacation: false, period: "", remainingDays: 0 };
+    }
+  };
+  
+  // Helper function to check if doctor is currently on vacation
+  const isOnVacation = (vacationData) => {
+    return getVacationInfo(vacationData).isOnVacation;
+  };
   const { requestsCount } = useSelector((store) => ({
     requestsCount: store.requestsCount,
   }));
@@ -223,6 +273,19 @@ export default function DoctorsList() {
                     <div className="doctor-details">
                       <Text strong className="doctor-name">{record.name}</Text>
                       <Text type="secondary" className="doctor-specialty">{record.speciality}</Text>
+                      {isOnVacation(record.vacation) && (
+                        <div style={{ marginTop: 4 }}>
+                          <Tooltip title={`${getVacationInfo(record.vacation).period}${
+                            getVacationInfo(record.vacation).remainingDays > 0 
+                              ? `\n\nRevine peste ${getVacationInfo(record.vacation).remainingDays} zile` 
+                              : ""
+                          }`}>
+                            <Tag color="orange">
+                              <CalendarOutlined /> În concediu 🌴
+                            </Tag>
+                          </Tooltip>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </Link>

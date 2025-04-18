@@ -14,3 +14,4 @@ export { default as InternalChatsList } from "./InternalChatsList";
 export { default as CompanyForm } from "./CompanyForm";
 export { default as MedicalCenterList } from "./MedicalCenterList";
 export { default as DoctorBalanceModal } from "./DoctorBalanceModal";
+export { default as UserBalanceModal } from "./UserBalanceModal";

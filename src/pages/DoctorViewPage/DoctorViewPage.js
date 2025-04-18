@@ -7,12 +7,22 @@ import GeneralInformationTab from "./tabs/GeneralInformationTab";
 import { useHistory } from "react-router-dom";
 import ChatsTab from "./tabs/ChatsTab";
 import ReferralSystemTab from "./tabs/ReferralSystemTab";
+import TransactionsTab from "./tabs/TransactionsTab";
 import usePermissionsRedirect from "../../hooks/usePermissionsRedirect";
 import cs from "../../utils/classNames";
 import api from "../../utils/appApi";
 import { DoctorForm, DoctorBalanceModal } from "../../modules";
 import { ReactComponent as ExLink } from "../../asstets/icons/ex-link.svg";
-import { UserOutlined, MessageOutlined, ClockCircleOutlined, LikeOutlined, WalletOutlined } from "@ant-design/icons";
+import { 
+  UserOutlined, 
+  MessageOutlined, 
+  ClockCircleOutlined, 
+  LikeOutlined, 
+  WalletOutlined,
+  TransactionOutlined,
+  TeamOutlined,
+  BankOutlined
+} from "@ant-design/icons";
 
 import "./styles/index.scss";
 import MedicalCentreTab from "./tabs/MedicalCentreTab";
@@ -130,16 +140,34 @@ export default function DoctorViewPage() {
         <Card className="doctor-tabs-container" bordered={false}>
           <DoctorViewContext.Provider value={{ docInfo, updateDocInfo }}>
             <Tabs type="card" className="doctor-tabs">
-              <TabPane tab="Informație generală" key="general-information">
+              <TabPane 
+                tab={<span><UserOutlined />Informație generală</span>}
+                key="general-information"
+              >
                 <GeneralInformationTab />
               </TabPane>
-              <TabPane tab="Chat-uri" key="chats">
+              <TabPane 
+                tab={<span><MessageOutlined />Chat-uri</span>}
+                key="chats"
+              >
                 <ChatsTab />
               </TabPane>
-              <TabPane tab="Referral system" key="referral-system">
+              <TabPane 
+                tab={<span><TransactionOutlined />Tranzacții</span>}
+                key="transactions"
+              >
+                <TransactionsTab />
+              </TabPane>
+              <TabPane 
+                tab={<span><TeamOutlined />Referral system</span>}
+                key="referral-system"
+              >
                 <ReferralSystemTab />
               </TabPane>
-              <TabPane tab="Centre medicale" key="medical-centre">
+              <TabPane 
+                tab={<span><BankOutlined />Centre medicale</span>}
+                key="medical-centre"
+              >
                 <MedicalCentreTab />
               </TabPane>
               {docInfo?.support_chat && (

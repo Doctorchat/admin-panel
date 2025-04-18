@@ -14,14 +14,15 @@ export default function useTableState(
 
   const onTableChange = useCallback(
     (pagination, _, sorter) => {
-      setPage(pagination.current);
-
+      // Don't update the page here as we're handling it separately
+      // in the pagination.onChange handler
+      
       if (sorter.order) {
         setSortColumn(sorter.field);
         setSortDirection(sorter.order);
       }
     },
-    [setPage, setSortColumn, setSortDirection]
+    [setSortColumn, setSortDirection]
   );
 
   return {

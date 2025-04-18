@@ -1,0 +1,53 @@
+.transactions-list-container {
+  padding: 0;
+  width: 100%;
+
+  .transactions-card {
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    margin-bottom: 16px;
+    
+    .ant-card-head {
+      border-bottom: 1px solid #f0f0f0;
+      padding: 16px 24px;
+      
+      .ant-card-head-title {
+        font-size: 16px;
+        font-weight: 600;
+      }
+    }
+    
+    .ant-table-thead > tr > th {
+      background-color: #f7fafc;
+      font-weight: 600;
+    }
+    
+    .canceled-transaction-row {
+      background-color: rgba(245, 34, 45, 0.05);
+      opacity: 0.75;
+    }
+    
+    .ant-table-row:hover {
+      .ant-table-cell {
+        background-color: rgba(24, 144, 255, 0.05) !important;
+      }
+    }
+    
+    .ant-badge-status-text {
+      font-weight: 500;
+    }
+  }
+  
+  // Responsive styles
+  @media (max-width: 768px) {
+    padding: 0 8px;
+    
+    .transactions-card {
+      border-radius: 4px;
+      
+      .ant-card-body {
+        padding: 12px;
+      }
+    }
+  }
+}

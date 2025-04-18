@@ -64,6 +64,18 @@
         margin-right: 8px;
       }
     }
+
+    .tab-content {
+      padding: 16px 0;
+    }
+  }
+  
+  // Loading indicator for tabs
+  .tab-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
   }
 }
 
@@ -118,6 +130,22 @@
     font-size: 16px;
   }
 }
+
+// Transactions, Payments and Topups Tab Styles
+.transactions-tab, .payments-tab, .topups-tab {
+  padding: 16px 0;
+  
+  .transactions-card, .payments-card, .topups-card {
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    
+    .ant-table-thead > tr > th {
+      background-color: #f7fafc;
+      font-weight: 600;
+    }
+  }
+}
+
 
 .investigations-container {
   margin-top: 16px;

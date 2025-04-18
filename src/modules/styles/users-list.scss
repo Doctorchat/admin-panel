@@ -1,0 +1,74 @@
+.users-list-page {
+  padding: 16px;
+  background-color: #f5f7fa;
+  min-height: calc(100vh - 64px);
+  width: 100%;
+
+  .stats-card {
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    margin-bottom: 16px;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    
+    .ant-statistic {
+      margin-bottom: 12px;
+      
+      .ant-statistic-title {
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.65);
+        margin-bottom: 8px;
+      }
+      
+      .ant-statistic-content {
+        font-size: 24px;
+        font-weight: 600;
+      }
+      
+      .ant-statistic-content-prefix {
+        margin-right: 8px;
+      }
+    }
+  }
+  
+  .tools-card {
+    margin-bottom: 16px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+  
+  .users-table-card {
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    
+    .ant-table-thead > tr > th {
+      background-color: #f7fafc;
+      font-weight: 600;
+    }
+    
+    .active-user-row {
+      background-color: rgba(82, 196, 26, 0.05);
+    }
+    
+    .ant-table-cell {
+      vertical-align: top;
+    }
+  }
+  
+  // Responsive tweaks
+  @media (max-width: 768px) {
+    padding: 8px;
+    
+    .ant-card {
+      border-radius: 4px;
+    }
+    
+    .stats-card {
+      margin-bottom: 8px;
+    }
+  }
+}

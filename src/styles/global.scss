@@ -7,8 +7,9 @@
 .dc-layout {
   min-height: 100vh;
   display: flex;
-  max-width: 1400px;
+  max-width: 1600px;
   position: relative;
+  margin: 0 auto;
 
   .ant-page-header {
     padding-left: 0;
@@ -58,6 +59,7 @@
 .dc-layout-content {
   padding: 0 30px 10px;
   width: 100%;
+  max-width: 100%;
 }
 
 .dc-layout-overlay {

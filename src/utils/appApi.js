@@ -38,6 +38,7 @@ const api = {
   users: {
     get: (params) => axiosInstance.get("/admin/users/clients", { params: { ...params } }).then((res) => res.data),
     getById: (id) => axiosInstance.get(`/admin/users/clients/${id}`),
+    getInfo: () => axiosInstance.get("/admin/users/clients-info"),
   },
   settings: {
     get: () => axiosInstance.get("/admin/settings/edit"),
@@ -49,7 +50,11 @@ const api = {
   },
   stats: {
     getStatistics: () => axiosInstance.get("/admin/statistics-extended?w").then((res) => res.data),
-    getTransactions: (params) => axiosInstance.get("/admin/transactions", { params: { ...params } }),
+    getTransactions: (params) => axiosInstance.get("/admin/transactions", { params: { ...params } }).then(res => res.data),
+    getTransactionsStats: () => axiosInstance.get("/admin/transactions-info").then(res => res.data),
+    getUserTransactions: (userId, params) => axiosInstance.get(`/admin/transactions/${userId}`, { params: { ...params } }).then(res => res.data),
+    getUserPayments: (userId, params) => axiosInstance.get(`/admin/payments/${userId}`, { params: { ...params } }).then(res => res.data),
+    getUserTopups: (userId, params) => axiosInstance.get(`/admin/topups/${userId}`, { params: { ...params } }).then(res => res.data),
   },
   promocodes: {
     get: (params) => axiosInstance.get("/promocodes", { params: { ...params } }),

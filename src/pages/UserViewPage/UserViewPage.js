@@ -1,12 +1,18 @@
 import { Tabs, Spin, Card, Avatar, Row, Col, Typography, Badge, Breadcrumb, Button } from "antd";
-import { HomeOutlined, UserOutlined, MessageOutlined, TeamOutlined, WalletOutlined } from "@ant-design/icons";
-import { useCallback, useState } from "react";
+import { 
+  HomeOutlined, 
+  UserOutlined, 
+  MessageOutlined, 
+  TeamOutlined, 
+  WalletOutlined,
+  TransactionOutlined, 
+  CreditCardOutlined,
+  BankOutlined
+} from "@ant-design/icons";
+import { lazy, Suspense, useCallback, useState, useEffect } from "react";
 import { useMount } from "react-use";
 import { useParams, useHistory } from "react-router-dom";
 import { useQueryClient } from "react-query";
-import GeneralInformationTab from "./tabs/GeneralInformationTab";
-import ChatsTab from "./tabs/ChatsTab";
-import ReferralSystemTab from "./tabs/ReferralSystemTab";
 import api from "../../utils/appApi";
 import usePermissionsRedirect from "../../hooks/usePermissionsRedirect";
 import date from "../../utils/date";
@@ -14,8 +20,23 @@ import { UserBalanceModal } from "../../modules";
 
 import "./styles/index.scss";
 
+// Lazy load tab components
+const GeneralInformationTab = lazy(() => import("./tabs/GeneralInformationTab"));
+const ChatsTab = lazy(() => import("./tabs/ChatsTab"));
+const ReferralSystemTab = lazy(() => import("./tabs/ReferralSystemTab"));
+const TransactionsTab = lazy(() => import("./tabs/TransactionsTab"));
+const PaymentsTab = lazy(() => import("./tabs/PaymentsTab"));
+const TopupsTab = lazy(() => import("./tabs/TopupsTab"));
+
 const { TabPane } = Tabs;
 const { Title, Text } = Typography;
+
+// Loading component for tab content
+const TabLoading = () => (
+  <div className="tab-loading">
+    <Spin size="large" />
+  </div>
+);
 
 export default function UserViewPage() {
   usePermissionsRedirect();
@@ -24,8 +45,14 @@ export default function UserViewPage() {
   const [userInfo, setUserInfo] = useState({});
   const [loading, setLoading] = useState(true);
   const [balanceModalVisible, setBalanceModalVisible] = useState(false);
+  const [activeTab, setActiveTab] = useState("general-information");
   const history = useHistory();
   const queryClient = useQueryClient();
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const fetchUserInfo = useCallback(async () => {
     try {
@@ -41,7 +68,26 @@ export default function UserViewPage() {
 
   useMount(fetchUserInfo);
 
-  const isOnline = new Date(userInfo.last_seen) > new Date(Date.now() - 5 * 60 * 1000);
+  const isOnline = userInfo.last_seen ? 
+    new Date(userInfo.last_seen) > new Date(Date.now() - 5 * 60 * 1000) : false;
+
+  const handleTabChange = (key) => {
+    setActiveTab(key);
+  };
+
+  const renderTabContent = () => {
+    // Only render the active tab content
+    return (
+      <Suspense fallback={<TabLoading />}>
+        {activeTab === "general-information" && <GeneralInformationTab userInfo={userInfo} />}
+        {activeTab === "chats" && <ChatsTab />}
+        {activeTab === "transactions" && <TransactionsTab />}
+        {activeTab === "payments" && <PaymentsTab />}
+        {activeTab === "topups" && <TopupsTab />}
+        {activeTab === "referral-system" && <ReferralSystemTab />}
+      </Suspense>
+    );
+  };
 
   return (
     <div className="user-view-page">
@@ -127,28 +173,46 @@ export default function UserViewPage() {
         </Card>
 
         <Card className="user-tabs-card">
-          <Tabs defaultActiveKey="general-information" size="large">
+          <Tabs 
+            activeKey={activeTab}
+            onChange={handleTabChange}
+            size="large"
+            destroyInactiveTabPane
+          >
             <TabPane 
               tab={<span><UserOutlined />Informație generală</span>} 
               key="general-information"
-            >
-              <GeneralInformationTab userInfo={userInfo} />
-            </TabPane>
+            />
             
             <TabPane 
               tab={<span><MessageOutlined />Chat-uri</span>} 
               key="chats"
-            >
-              <ChatsTab />
-            </TabPane>
+            />
+            
+            <TabPane 
+              tab={<span><TransactionOutlined />Tranzacții</span>} 
+              key="transactions"
+            />
+            
+            <TabPane 
+              tab={<span><CreditCardOutlined />Plăți</span>} 
+              key="payments"
+            />
+            
+            <TabPane 
+              tab={<span><BankOutlined />Alimentări</span>} 
+              key="topups"
+            />
             
             <TabPane 
               tab={<span><TeamOutlined />Referral system</span>} 
               key="referral-system"
-            >
-              <ReferralSystemTab />
-            </TabPane>
+            />
           </Tabs>
+          
+          <div className="tab-content">
+            {renderTabContent()}
+          </div>
         </Card>
         
         {/* User Balance Modal */}

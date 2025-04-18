@@ -1,0 +1,60 @@
+.transactions-page {
+  .content-container {
+    padding: 0 8px;
+  }
+
+  .stats-row {
+    margin-bottom: 16px;
+    
+    .ant-card {
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      }
+    }
+    
+    .ant-statistic {
+      .ant-statistic-title {
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.65);
+        margin-bottom: 8px;
+      }
+      
+      .ant-statistic-content {
+        font-size: 24px;
+        font-weight: 600;
+      }
+      
+      .ant-statistic-content-prefix {
+        margin-right: 8px;
+      }
+    }
+  }
+  
+  // Custom header styles
+  .site-page-header {
+    padding-left: 8px;
+    padding-right: 8px;
+    
+    .ant-page-header-heading-title {
+      font-size: 20px;
+      font-weight: 600;
+    }
+  }
+  
+  // Responsive tweaks
+  @media (min-width: 768px) {
+    .content-container {
+      padding: 0 16px;
+    }
+    
+    .site-page-header {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+  }
+}

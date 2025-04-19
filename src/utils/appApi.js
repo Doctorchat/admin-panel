@@ -1,4 +1,4 @@
-import axiosInstance from "./apiConfig";
+import axiosInstance, { cleanParams } from "./apiConfig";
 
 const api = {
   user: {
@@ -129,7 +129,7 @@ const api = {
       axiosInstance.get(`/admin/companies/${id}/employees`, { params }).then((res) => res.data),
   },
   tipOfTheDay: {
-    getAll: (params) => axiosInstance.get("/admin/totd", { params }).then((res) => res.data),
+    getAll: (params) => axiosInstance.get("/admin/totd", { params: cleanParams(params) }).then((res) => res.data),
     getById: (id) => axiosInstance.get(`/admin/totd/${id}`).then((res) => res.data),
     create: (data) => axiosInstance.post("/admin/totd", data),
     update: ({ id, data }) => {

@@ -2,6 +2,23 @@ import axios from "axios";
 import store from "../store/store";
 import { setUserToNotAuthorized } from "../store/actions/userAction";
 
+// Utility function to clean empty parameters
+export const cleanParams = (params) => {
+  if (!params) return {};
+  
+  const cleanedParams = {};
+  
+  Object.entries(params).forEach(([key, value]) => {
+    // Skip empty strings, null, and undefined values
+    if (value === null || value === undefined) return;
+    if (typeof value === 'string' && value.trim() === '') return;
+    
+    cleanedParams[key] = value;
+  });
+  
+  return cleanedParams;
+};
+
 const token = localStorage.getItem("token");
 const axiosInstance = axios.create({
   baseURL: process.env.REACT_APP_API_URL,

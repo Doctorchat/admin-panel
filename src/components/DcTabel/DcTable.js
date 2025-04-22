@@ -12,12 +12,16 @@ export default function DcTable(props) {
     pagination,
     title,
     onTableChange,
+    onTabelChange, // Support legacy misspelled prop
     rowKey,
     loading,
     extra,
     rowClassName,
     expandable,
   } = props;
+  
+  // Use the correct handler or fallback to the misspelled one
+  const handleChange = onTableChange || onTabelChange;
   const [tableXScroll, setTableXScroll] = useState(null);
 
   useEffect(() => {
@@ -51,7 +55,7 @@ export default function DcTable(props) {
           rowKey={rowKey}
           dataSource={dataSource}
           columns={dataColumns}
-          onChange={onTableChange}
+          onChange={handleChange}
           loading={loading}
           rowClassName={rowClassName}
           expandable={expandable}
@@ -81,6 +85,7 @@ DcTable.propTypes = {
   }),
   title: PropTypes.string,
   onTableChange: PropTypes.func,
+  onTabelChange: PropTypes.func, // Support legacy misspelled prop
   loading: PropTypes.bool,
   extra: PropTypes.element,
   fetching: PropTypes.bool,

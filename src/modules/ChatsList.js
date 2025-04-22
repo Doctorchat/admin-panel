@@ -1,4 +1,4 @@
-import { Alert, Button, PageHeader, Tag } from "antd";
+import { Alert, Button, PageHeader, Table, Tag } from "antd";
 import PropTypes from "prop-types";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -111,10 +111,17 @@ export default function ChatsList(props) {
   });
 
   const onTableChange = useCallback(
-    (pagination) => {
+    (pagination, _, sorter) => {
       const newState = { ...state };
 
-      newState.page = pagination.current;
+      if (pagination && pagination.current) {
+        newState.page = pagination.current;
+      }
+
+      if (sorter && sorter.order) {
+        newState.sort_column = sorter.field;
+        newState.sort_direction = sorter.order;
+      }
 
       setState(newState);
     },
@@ -197,24 +204,56 @@ export default function ChatsList(props) {
     );
   }
 
+  // Render table with fallback mechanism
+  const renderTable = () => {
+    try {
+      return (
+        <DcTable
+          title={title}
+          dataColumns={columns}
+          dataSource={chats?.data || []}
+          loading={loading}
+          onTableChange={onTableChange}
+          rowClassName={(row) => row.status === "closed" && "chat-row-closed"}
+          pagination={{
+            position: [simplified ? "none" : "bottomRight"],
+            per_page: chats?.per_page,
+            total: chats?.total,
+            current_page: chats?.current_page,
+          }}
+          extra={extra}
+        />
+      );
+    } catch (error) {
+      console.error("Error rendering DcTable:", error);
+      // Fallback to the original Table component
+      return (
+        <Table
+          bordered
+          scroll={{ x: 700 }}
+          size="small"
+          rowKey="id"
+          columns={columns}
+          dataSource={chats?.data || []}
+          loading={loading}
+          pagination={{
+            position: [simplified ? "none" : "bottomRight"],
+            current: chats?.current_page,
+            pageSize: chats?.per_page,
+            total: chats?.total,
+            showSizeChanger: false,
+          }}
+          onChange={onTableChange}
+          rowClassName={(row) => row.status === "closed" && "chat-row-closed"}
+        />
+      );
+    }
+  };
+
   return (
     <>
       <PageHeader className="site-page-header" title={`Chat-uri (${chats?.total || 0})`} />
-      <DcTable
-        title={title}
-        dataColumns={columns}
-        dataSource={chats?.data || []}
-        loading={loading}
-        onTabelChange={onTableChange}
-        rowClassName={(row) => row.status === "closed" && "chat-row-closed"}
-        pagination={{
-          position: [simplified ? "none" : "bottomRight"],
-          per_page: chats?.per_page,
-          total: chats?.total,
-          current_page: chats?.current_page,
-        }}
-        extra={extra}
-      />
+      {renderTable()}
     </>
   );
 }

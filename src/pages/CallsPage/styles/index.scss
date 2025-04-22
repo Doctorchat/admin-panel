@@ -1,0 +1,31 @@
+.calls-page {
+  .calls-card {
+    margin: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    
+    .ant-tabs-card {
+      > .ant-tabs-nav {
+        margin-bottom: 16px;
+        
+        .ant-tabs-tab {
+          border-radius: 4px 4px 0 0;
+          
+          &.ant-tabs-tab-active {
+            background-color: #f0f5ff;
+            border-bottom-color: #f0f5ff;
+          }
+        }
+      }
+    }
+    
+    .ant-table-wrapper {
+      margin-top: 12px;
+    }
+  }
+  
+  .pagination-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+  }
+}

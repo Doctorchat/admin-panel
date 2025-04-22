@@ -11,7 +11,7 @@ export default function DcTable(props) {
     dataColumns,
     pagination,
     title,
-    onTabelChange,
+    onTableChange,
     rowKey,
     loading,
     extra,
@@ -51,7 +51,7 @@ export default function DcTable(props) {
           rowKey={rowKey}
           dataSource={dataSource}
           columns={dataColumns}
-          onChange={onTabelChange}
+          onChange={onTableChange}
           loading={loading}
           rowClassName={rowClassName}
           expandable={expandable}
@@ -80,7 +80,7 @@ DcTable.propTypes = {
     position: PropTypes.arrayOf(PropTypes.string),
   }),
   title: PropTypes.string,
-  onTabelChange: PropTypes.func,
+  onTableChange: PropTypes.func,
   loading: PropTypes.bool,
   extra: PropTypes.element,
   fetching: PropTypes.bool,
